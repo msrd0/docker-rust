@@ -1,7 +1,13 @@
 #!/bin/sh
 
-export PATH="$CARGO_HOME/bin/:$PATH"
+export PATH="$CARGO_HOME/bin/:$RUSTUP_HOME/cargo/bin:$PATH"
 subcommand="$1"
+
+case "$subcommand" in "-"*)
+	cargo "${@}"
+	exit $?
+esac
+
 shift
 case "$subcommand" in
 "build"|"check"|"run"|"test"|"bench"|"install")
